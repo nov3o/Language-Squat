@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Squat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container my-5">
+
+        <!-- Menu Section -->
+        <section id="menu-section" class="text-center">
+            <h1 class="mb-3">Language Squat</h1>
+            <p class="lead">Greater than the Greatest Language Identifying & Guessing Game.</p>
+            <div class="game-settings mb-4">
+                <div class="mb-2">
+                    <h2>Audio</h2>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="audio-level" value="beginner" autocomplete="off" checked> Beginner
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="audio-level" value="medium" autocomplete="off"> Medium
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="difficulty" value="easy" autocomplete="off"> Easy
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="difficulty" value="hard" autocomplete="off"> Hard
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <h2>Alphabet</h2>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="alphabet-level" value="easy" autocomplete="off"> Easy
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="alphabet-level" value="hard" autocomplete="off"> Hard
+                        </label>
+                    </div>
+                </div>
+                <button id="start-game" class="btn btn-primary btn-lg">Start Game</button>
+                <p class="languages-info mt-3">11 Languages</p>
+            </div>
+        </section>
+
+        <!-- Game Section -->
+        <section id="game-section" class="text-center d-none">
+            <div class="autoplay mb-2">
+                <label>AutoPlay: <input type="checkbox"></label>
+            </div>
+            <div class="question mb-2">
+                <h3>Question 1:</h3>
+                <button class="btn btn-info play-button">Play</button>
+            </div>
+            <div class="options mb-2">
+                <button class="btn btn-outline-primary">Lao</button>
+                <button class="btn btn-outline-primary">Acehnese</button>
+                <button class="btn btn-outline-primary">Czech</button>
+            </div>
+        </section>
+
+        <!-- Game Over Section -->
+        <section id="game-over-section" class="text-center d-none">
+            <h2 class="mb-3">Game Over</h2>
+            <p>Your final score: <span id="final-score">0</span></p>
+            <button id="play-again" class="btn btn-danger btn-lg">Play Again</button>
+        </section>
+
+        <!-- You Win Section -->
+        <section id="you-win-section" class="text-center d-none">
+            <h2 class="mb-3">Congratulations, You Win!</h2>
+            <p>Your final score: <span id="final-score">0</span></p>
+            <button id="play-again-win" class="btn btn-success btn-lg">Play Again</button>
+        </section>
+
+        <footer class="mt-5">
+            <p>Language Squad is designed to be playable by people with all possible impairments.</p>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
