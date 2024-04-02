@@ -1,91 +1,426 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Squat</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="icon.png" type="image/x-icon">
-</head>
-<body>
-    <div class="container my-5">
+  <head>
+    <title>
+      Language Squad | Language Identification Game with Audio and Script
+      Samples
+    </title>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Language Squad is a language guessing and identifiying game that offers both audio and script samples. Language Squad can be played by people with vision or hearing impairments. Language Squad is inspired by “The Great Language Game” created by Lars Yencken."
+    />
+    <link rel="icon" href="/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --jumbotron-padding-y: 3rem;
+      }
 
-        <!-- Menu Section -->
-        <section id="menu-section" class="text-center">
-            <h1 class="mb-3">Language Squat</h1>
-            <p class="lead">Greater than the Greatest Language Identifying & Guessing Game.</p>
-            <div class="game-settings mb-4">
-                <div class="mb-2">
-                    <h2>Audio</h2>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="audio-level" value="beginner" autocomplete="off" checked> Beginner
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="audio-level" value="medium" autocomplete="off"> Medium
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="difficulty" value="easy" autocomplete="off"> Easy
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="difficulty" value="hard" autocomplete="off"> Hard
-                        </label>
-                    </div>
+      .jumbotron {
+        padding-top: var(--jumbotron-padding-y);
+        padding-bottom: var(--jumbotron-padding-y);
+        margin-bottom: 0;
+        background-color: #fff;
+        transition: all 0.5s ease;
+      }
+      .jumbotron.shrink {
+        padding-top: 1.5em;
+        padding-bottom: 1em;
+        box-shadow:
+          0 2px 4px -1px rgba(0, 0, 0, 0.06),
+          0 4px 5px 0 rgba(0, 0, 0, 0.06),
+          0 1px 10px 0 rgba(0, 0, 0, 0.08);
+      }
+      .jumbotron.shrink h1 {
+        transition: all 0.5s ease;
+        font-size: 1.75rem;
+      }
+      @media (min-width: 768px) {
+        .jumbotron {
+          padding-top: calc(var(--jumbotron-padding-y) * 2);
+          padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+        }
+        .jumbotron.shrink {
+          padding-top: 1.5em;
+          padding-bottom: 1em;
+          box-shadow:
+            0 2px 4px -1px rgba(0, 0, 0, 0.06),
+            0 4px 5px 0 rgba(0, 0, 0, 0.06),
+            0 1px 10px 0 rgba(0, 0, 0, 0.08);
+        }
+        .jumbotron.shrink h1 {
+          font-size: 2.5rem;
+        }
+      }
+      .sstestoption {
+        background: #e6e6f0;
+        cursor: pointer;
+        line-height: 25px;
+        transition: all 0.5s ease;
+        margin: 5px 0px;
+        padding: 2px;
+        text-align: left;
+        display: block;
+        width: 100%;
+        border: none;
+      }
+      .sstestoption .fa {
+        line-height: 25px;
+        font-size: 25px;
+        vertical-align: middle;
+        padding-right: 5px;
+        margin-top: -3px;
+      }
+      .sstestoption:hover {
+        background: #d6d6e0;
+      }
+      .sstestoption.selected {
+        background: #505060;
+        color: white;
+      }
+      .sstestoption.correct {
+        color: white;
+        background: var(--success);
+      }
+      .sstestoption.wrong {
+        color: white;
+        background: var(--danger);
+      }
+      .sstestoption.correct,
+      .sstestoption.wrong {
+        transform: rotateX(359deg);
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+
+      @keyframes spinner {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        border-top-color: #333;
+        animation: spinner 0.6s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="vsc-initialized">
+    <main role="main" id="game" class="container">
+      <section class="jumbotron text-center pb-3">
+        <div class="container">
+          <h1 class="jumbotron-heading">
+            <span style="cursor: pointer">Language Squad</span>
+          </h1>
+          <p class="lead text-muted">
+            The Greatest Language Identifying &amp; Guessing Game.
+          </p>
+          <div>
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <h4 class="text-center" style="margin-top: 1em">Audio</h4>
+              </div>
+              <div class="w-100"></div>
+              <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="Beginner, 12 Languages"
+                      class="sstestoption selected"
+                    >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-check-circle-o"></span>
+                        Beginner
+                      </div>
+                    </button>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="Easy, 24 Languages"
+                      class="sstestoption"
+                    >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Easy
+                      </div>
+                    </button>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="Medium, 58 Languages"
+                      class="sstestoption"
+                    >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Medium
+                      </div>
+                    </button>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="Hard, 92 Languages"
+                      class="sstestoption"
+                    >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Hard
+                      </div>
+                    </button>
+                  </div>
                 </div>
-                <div class="mb-2">
-                    <h2>Alphabet</h2>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="alphabet-level" value="easy" autocomplete="off"> Easy
-                        </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="alphabet-level" value="hard" autocomplete="off"> Hard
-                        </label>
-                    </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <h4 class="text-center" style="margin-top: 1em">Alphabet</h4>
+              </div>
+              <div class="w-100"></div>
+              <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-sm-6">
+                    <button
+                      title="Easy, 20 Alphabets"
+                      onclick="select(this)"
+                      class="sstestoption"
+                    >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Easy
+                      </div>
+                    </button>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <button
+                      title="Hard, 46 Alphabets"
+                      onclick="select(this)"
+                      class="sstestoption"
+                    >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Hard
+                      </div>
+                    </button>
+                  </div>
                 </div>
-                <button id="start-game" class="btn btn-primary btn-lg">Start Game</button>
-                <p class="languages-info mt-3">11 Languages</p>
+              </div>
             </div>
-        </section>
-
-        <!-- Game Section -->
-        <section id="game-section" class="text-center d-none">
-            <div class="autoplay mb-2">
-                <label>AutoPlay: <input type="checkbox"></label>
+            <br />
+            <p style="display: none">
+              <span
+                style="
+                  position: relative;
+                  width: 1em;
+                  height: 1em;
+                  display: inline-block;
+                "
+                ><span class="spinner"></span
+              ></span>
+              Loading...
+            </p>
+            <div style="margin: 0px 0px 1em">12 Languages</div>
+            <button
+              title="Click to Start Game"
+              onclick="playGame()"
+              class="btn btn-primary"
+            >
+              &nbsp;Start Game&nbsp;
+              <i class="fa fa-angle-right"></i>&nbsp;
+            </button>
+            <p class="text-muted" style="margin: 2em 0px 1em">
+              <i class="fa fa-info-circle"></i> Language Squad is designed to be
+              playable by people with vision or hearing impairments.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div id="choices-menu">
+        <div style="padding: 10px 0px 0px">
+          <div class="clearfix">
+            <div class="pull-left">
+              <h5
+                tabindex="0"
+                title="Keyboard Shortcut : A"
+                style="cursor: pointer"
+              >
+                AutoPlay :
+                <span
+                  ><i
+                    title="AutoPlay : ON"
+                    class="fa fa-forward"
+                    style="color: var(--green); display: none"
+                  ></i>
+                  <i title="AutoPlay : OFF" class="fa fa-step-forward"></i
+                ></span>
+              </h5>
             </div>
-            <div class="question mb-2">
-                <h3>Question 1:</h3>
-                <button class="btn btn-info play-button">Play</button>
+            <div class="pull-right">
+              <h5 class="text-right">
+                <i class="fa fa-bomb"></i> 0 | <i class="fa fa-star"></i> 0
+              </h5>
             </div>
-            <div class="options mb-2">
-                <button class="btn btn-outline-primary">Lao</button>
-                <button class="btn btn-outline-primary">Acehnese</button>
-                <button class="btn btn-outline-primary">Czech</button>
+          </div>
+          <div style="font-size: 22px; font-weight: 700; margin: 0.6em 0px 1em">
+            <span>Question 1 : </span>
+            <!---->
+            <!---->
+            <!---->
+            <button
+              title="Keyboard Shortcut : Space"
+              class="btn btn-primary btn-sm"
+            >
+              &nbsp; Play&nbsp; <i class="fa fa-play"></i>&nbsp;
+            </button>
+            <button class="btn btn-danger btn-sm" style="display: none">
+              &nbsp; Stop&nbsp; <i class="fa fa-stop"></i>&nbsp;
+            </button>
+            <span style="display: none"
+              >&nbsp;<i class="fa fa-spinner fa-pulse"></i> Loading</span
+            >
+          </div>
+          <div class="row justify-content-center" id="choices">
+            <div class="col-12 col-sm-6 col-lg-4">
+              <button class="sstestoption">
+                <div style="padding: 10px">
+                  <span class="fa fa-circle-o"></span> <span>Russian</span>
+                </div>
+              </button>
             </div>
-        </section>
-
-        <!-- Game Over Section -->
-        <section id="game-over-section" class="text-center d-none">
-            <h2 class="mb-3">Game Over</h2>
-            <p>Your final score: <span id="final-score">0</span></p>
-            <button id="play-again" class="btn btn-danger btn-lg">Play Again</button>
-        </section>
-
-        <!-- You Win Section -->
-        <section id="you-win-section" class="text-center d-none">
-            <h2 class="mb-3">Congratulations, You Win!</h2>
-            <p>Your final score: <span id="final-score">0</span></p>
-            <button id="play-again-win" class="btn btn-success btn-lg">Play Again</button>
-        </section>
-
-        <footer class="mt-5">
-            <p>Language Squad is designed to be playable by people with all possible impairments.</p>
-        </footer>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <button class="sstestoption">
+                <div style="padding: 10px">
+                  <span class="fa fa-circle-o"></span> <span>Arabic</span>
+                </div>
+              </button>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <button class="sstestoption">
+                <div style="padding: 10px">
+                  <span class="fa fa-circle-o"></span> <span>Hindi</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!---->
+        <!---->
+        <div class="text-center" style="display: none">
+          <br />
+          <button title="Keyboard Shortcut : Enter" class="btn btn-info">
+            Next -&gt;
+          </button>
+          <br />
+        </div>
+      </div>
+      <!---->
+      <div class="text-center" style="display: none">
+        <br />
+        <hr />
+        <br />
+        <div style="display: none">
+          <h2>
+            Congrats!<br />You finished the Beginner Level.<br />Final Score: 0
+          </h2>
+          <br />
+          <button class="btn btn-danger">
+            &nbsp;Select another level &nbsp;<i class="fa fa-reply"></i>&nbsp;
+          </button>
+        </div>
+        <div>
+          <h2>Game Over.<br />Final Score: 0</h2>
+          <br />
+          <button class="btn btn-danger">
+            &nbsp;Play Again &nbsp;<i class="fa fa-reply"></i>&nbsp;
+          </button>
+        </div>
+        <br />
+        <div class="row" style="margin: 20px 0px 50px">
+          <div class="col-6 col-md-4 offset-md-2">
+            <a
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.languagesquad.com%2F"
+              onclick="window.open(this.href, 'facebook-share-dialog', 'width=630,height=440'); return false;"
+              class="btn btn-primary btn-block"
+              style="
+                background: rgb(110, 144, 192);
+                color: white;
+                white-space: normal;
+                text-decoration: none;
+              "
+              ><i class="fa fa-facebook"></i> &nbsp; Share on Facebook
+            </a>
+          </div>
+          <div class="col-6 col-md-4">
+            <a
+              href="https://twitter.com/share?url=https%3A%2F%2Fwww.languagesquad.com%2F&amp;text=I%20scored%200%20on%20LanguageSquad."
+              onclick="window.open(this.href, 'twitter-share-dialog', 'width=630,height=440'); return false;"
+              class="btn btn-primary btn-block"
+              style="
+                background: rgb(93, 170, 230);
+                color: white;
+                white-space: normal;
+                text-decoration: none;
+              "
+              ><i class="fa fa-twitter"></i> &nbsp; Share on Twitter
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="container text-center"
+        style="
+          margin-top: 3em;
+          padding: 2em 0px;
+          font-size: 0.85em;
+          border-top: 1px solid rgb(221, 221, 221);
+        "
+      ></div>
+      <div
+        class="container"
+        style="
+          padding: 5em 0px 4em;
+          text-align: center;
+          color: rgb(187, 187, 187);
+          font-size: 0.85em;
+          border-top: 1px solid rgb(221, 221, 221);
+        "
+      >
+        © 2018 LanguageSquad.com<br />
+        Inspired by “The Great Language Game”<br />
+        Language Squad is made in sunny California
+      </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="data.js"></script>
+    <script src="engine.js"></script>
+    <script src="interface.js"></script>
+    <link rel="preload" href="/loading.gif" as="image" />
+  </body>
 </html>

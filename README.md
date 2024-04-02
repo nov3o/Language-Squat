@@ -1,6 +1,6 @@
 # Language Squat
 
-The open-source recreation of languagesquad.com.
+The open-source recreation of [languagesquad.com](https://www.languagesquad.com/).
 
 ### Purpose
 
@@ -8,4 +8,4 @@ Unfortunately, the game's source code is obfuscated. Also, I don't want to train
 
 ### Contact
 
-If the audio doesn't work, please contact me at !(badanin.ilia@gmail.com)[mailto:badanin.ilia@gmail.com]. You can use this email for any other reason too. 🙂
+If the audio doesn't work, please contact me at [badanin.ilia\@gmail.com](mailto:badanin.ilia@gmail.com?subject=LanguageSquat). You can use this email for any other reason too. 🙂
