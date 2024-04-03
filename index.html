@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <title>
-      Language Squad | Language Identification Game with Audio and Script
+      Language Squat | Language Identification Game with Audio and Script
       Samples
     </title>
     <meta charset="UTF-8" />
@@ -11,7 +11,7 @@
     />
     <meta
       name="description"
-      content="Language Squad is a language guessing and identifiying game that offers both audio and script samples. Language Squad can be played by people with vision or hearing impairments. Language Squad is inspired by “The Great Language Game” created by Lars Yencken."
+      content="Language Squat is a language guessing and identifiying game that offers both audio and script samples. Language Squat can be played by people with vision or hearing impairments. Language Squat is inspired by “The Great Language Game” created by Lars Yencken."
     />
     <link rel="icon" href="/favicon.png" />
     <link
@@ -135,10 +135,10 @@
       <section class="jumbotron text-center pb-3">
         <div class="container">
           <h1 class="jumbotron-heading">
-            <span style="cursor: pointer">Language Squad</span>
+            <span style="cursor: pointer">Language Squat</span>
           </h1>
           <p class="lead text-muted">
-            The Greatest Language Identifying &amp; Guessing Game.
+            Greater Than the Greatest Language Identification & Guessing Game.
           </p>
           <div>
             <div class="row justify-content-center">
@@ -153,6 +153,7 @@
                       onclick="select(this)"
                       title="Beginner, 12 Languages"
                       class="sstestoption selected"
+                      id="beginner"
                     >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-check-circle-o"></span>
@@ -165,6 +166,7 @@
                       onclick="select(this)"
                       title="Easy, 24 Languages"
                       class="sstestoption"
+                      id="easy"
                     >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
@@ -177,6 +179,7 @@
                       onclick="select(this)"
                       title="Medium, 58 Languages"
                       class="sstestoption"
+                      id="medium"
                     >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
@@ -189,6 +192,7 @@
                       onclick="select(this)"
                       title="Hard, 92 Languages"
                       class="sstestoption"
+                      id="hard"
                     >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
@@ -211,6 +215,7 @@
                       title="Easy, 20 Alphabets"
                       onclick="select(this)"
                       class="sstestoption"
+                      id="texteasy"
                     >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
@@ -223,6 +228,7 @@
                       title="Hard, 46 Alphabets"
                       onclick="select(this)"
                       class="sstestoption"
+                      id="texthard"
                     >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
@@ -246,7 +252,7 @@
               ></span>
               Loading...
             </p>
-            <div style="margin: 0px 0px 1em">12 Languages</div>
+            <div style="margin: 0px 0px 1em" id="nlangs">12 Languages</div>
             <button
               title="Click to Start Game"
               onclick="playGame()"
@@ -256,13 +262,13 @@
               <i class="fa fa-angle-right"></i>&nbsp;
             </button>
             <p class="text-muted" style="margin: 2em 0px 1em">
-              <i class="fa fa-info-circle"></i> Language Squad is designed to be
-              playable by people with vision or hearing impairments.
+              <i class="fa fa-info-circle"></i> Language Squat is designed to be
+              playable by people with all possible and impossible impairments.
             </p>
           </div>
         </div>
       </section>
-      <div id="choices-menu">
+      <div id="choices-menu" style="display: none">
         <div style="padding: 10px 0px 0px">
           <div class="clearfix">
             <div class="pull-left">
@@ -284,12 +290,15 @@
             </div>
             <div class="pull-right">
               <h5 class="text-right">
-                <i class="fa fa-bomb"></i> 0 | <i class="fa fa-star"></i> 0
+                <i class="fa fa-bomb"></i>
+                <span id="strike">0</span> |
+                <i class="fa fa-star"></i>
+                <span id="score">0</span>
               </h5>
             </div>
           </div>
           <div style="font-size: 22px; font-weight: 700; margin: 0.6em 0px 1em">
-            <span>Question 1 : </span>
+            <span>Question <span id="level">1</span> : </span>
             <!---->
             <!---->
             <!---->
@@ -306,21 +315,7 @@
               >&nbsp;<i class="fa fa-spinner fa-pulse"></i> Loading</span
             >
           </div>
-          <div class="row justify-content-center" id="choices">
-            <div class="col-12 col-sm-6 col-lg-4">
-              <button class="sstestoption">
-                <div style="padding: 10px">
-                  <span class="fa fa-circle-o"></span> <span>Russian</span>
-                </div>
-              </button>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-4">
-              <button class="sstestoption">
-                <div style="padding: 10px">
-                  <span class="fa fa-circle-o"></span> <span>Arabic</span>
-                </div>
-              </button>
-            </div>
+          <div class="row justify-content-center" id="lang-game-buttons">
             <div class="col-12 col-sm-6 col-lg-4">
               <button class="sstestoption">
                 <div style="padding: 10px">
@@ -328,36 +323,54 @@
                 </div>
               </button>
             </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <button class="sstestoption">
+                <div style="padding: 10px">
+                  <span class="fa fa-circle-o"></span> <span>English</span>
+                </div>
+              </button>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <button class="sstestoption">
+                <div style="padding: 10px">
+                  <span class="fa fa-circle-o"></span> <span>Chinese</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
         <!---->
         <!---->
-        <div class="text-center" style="display: none">
+        <div class="text-center" style="display: none" id="next-div">
           <br />
-          <button title="Keyboard Shortcut : Enter" class="btn btn-info">
+          <button
+            onclick="playLevel()"
+            title="Keyboard Shortcut : Enter"
+            class="btn btn-info"
+          >
             Next -&gt;
           </button>
           <br />
         </div>
       </div>
       <!---->
-      <div class="text-center" style="display: none">
+      <div class="text-center" style="display: none" id="finish-div">
         <br />
         <hr />
         <br />
-        <div style="display: none">
+        <div style="display: none" id="win-div">
           <h2>
             Congrats!<br />You finished the Beginner Level.<br />Final Score: 0
           </h2>
           <br />
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" onclick="end()" s>
             &nbsp;Select another level &nbsp;<i class="fa fa-reply"></i>&nbsp;
           </button>
         </div>
-        <div>
+        <div id="game-over-div">
           <h2>Game Over.<br />Final Score: 0</h2>
           <br />
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" onclick="playAgain()">
             &nbsp;Play Again &nbsp;<i class="fa fa-reply"></i>&nbsp;
           </button>
         </div>
@@ -379,7 +392,7 @@
           </div>
           <div class="col-6 col-md-4">
             <a
-              href="https://twitter.com/share?url=https%3A%2F%2Fwww.languagesquad.com%2F&amp;text=I%20scored%200%20on%20LanguageSquad."
+              href="https://twitter.com/share?url=https%3A%2F%2Fwww.languagesquad.com%2F&amp;text=I%20scored%200%20on%20LanguageSquat."
               onclick="window.open(this.href, 'twitter-share-dialog', 'width=630,height=440'); return false;"
               class="btn btn-primary btn-block"
               style="
@@ -412,9 +425,9 @@
           border-top: 1px solid rgb(221, 221, 221);
         "
       >
-        © 2018 LanguageSquad.com<br />
-        Inspired by “The Great Language Game”<br />
-        Language Squad is made in sunny California
+        Inspired by <a href="https://www.languagesquad.com/">Language Squad</a
+        ><br />
+        Language Squat is made in sunny Lausanne
       </div>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

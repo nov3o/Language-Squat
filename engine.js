@@ -18,12 +18,13 @@ var strike = 0;
 var fastPlay = false; // Correct/Wrong without pressing next
 var levels = new Array();
 
-function shuffleArray(array) {
+const shuffle = function (array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-}
+  return array;
+};
 
 const additionalOptions = (n) => Math.floor(Math.min(n, 2450) / 250) + 2;
 
@@ -35,24 +36,25 @@ function randAdd(set, k, result) {
     result.push(arr[randIndex]);
     arr.splice(randIndex, 1);
   }
-  return result;
+  return shuffle(result);
 }
 
 const resetScore = function () {
   score = 0;
   strike = 0;
-  level = 1;
+  level = 0;
 };
 
 const theGreatReset = function () {
-  (availScripts = new Set(allScripting)), (availSpeeches = new Set(allSpeech));
-  Object.keys(audiofiles).forEach((key) => shuffleArray(audiofiles[key]));
+  availScripts = new Set(allScripting);
+  availSpeeches = new Set(allSpeech);
+  Object.keys(audiofiles).forEach((key) => shuffle(audiofiles[key]));
   gameMode = "choose";
   type = "speech";
-  availCodes = Array.from(availSpeeches);
+  availCodes = availSpeeches;
   fastPlay = 0;
   score = 0;
-  level = 1;
+  level = 0;
   strike = 0;
   levels = new Array();
   generateLevels();
@@ -75,12 +77,17 @@ const addSpeechCode = function (name) {
 };
 
 const redefineCodes = function (difficulty, isSpeech) {
-  if (isSpeech) availSpeeches = levelsSets[difficulty];
-  else availScripts = levelsSets[difficulty];
+  if (isSpeech) {
+    availSpeeches = new Set(levelsSets[difficulty]);
+    availCodes = availSpeeches;
+  } else {
+    availScripts = new Set(levelsSets[difficulty]);
+    availCodes = availScripts;
+  }
 };
 
 const generateLevels = () => {
-  codes = Array.from(type === "speech" ? availSpeeches : availScripts);
+  codes = Array.from(availCodes);
   // Preset the levels
   levels = codes.flatMap((code) =>
     Array.from({ length: 5 }, (_, i) => ({
@@ -89,14 +96,14 @@ const generateLevels = () => {
       file: audiofiles[code][i],
     })),
   );
-  shuffleArray(levels);
+  levels = shuffle(levels);
 };
 
 const choose = function (code) {
   ans = levels[level - 1]["ans"];
   status = code === ans;
   if (status == "true")
-    score += 250; // for some reason status is stringx
+    score += 50; // for some reason status is stringx
   else strike++;
   return [status, strike, score, ans];
 };
@@ -107,6 +114,7 @@ const getNext = function () {
   code = curLevel.ans;
   availCodes.delete(code);
   randAdd(availCodes, m, curLevel["choices"]);
+  availCodes.add(code);
   level++;
   return curLevel;
 };
