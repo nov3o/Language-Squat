@@ -1,16 +1,11 @@
 /*
   levelsSets:    Dictionary(String, Array[String(3)])
-  allScripting:  Array[String(3)]
   allSpeech:     Array[String(3)]
   speech2name:   Dictionary(String(3), String)
-  script2name:   Dictionary(String(3), String)
   audiofiles:    Dictionary(String(3), Array[String](5))
 
-  availScripts:  Set[String(3)]
-  availSpeeches: Set[String(3)]
   availCodes:    Set[String(3)]
   gameMode:      String
-  type:          String
   score:         Integer
   level:         Integer
   strike:        Integer
@@ -30,22 +25,28 @@ finishEl = $("#finish-div");
 nextEl = $("#next-div");
 levelEl = $("#level");
 nLangsEl = $("#nlangs");
+langSelMenu = $("#lang-selection")
+var allLangSelButtons;
 
 gameFinished = 0;
 hasChosen = 0;
+levelName = "beginner"
 
 function toggleSelect(element, key) {
-  $(element).toggleClass("active");
+  $(element).toggleClass("correct");
+  levelName = "Custom"
 
   // Toggling the key in the dictionary object
-  if (dictionary[key]) {
-    delete dictionary[key];
+  if (availCodes.has(key)) {
+    availCodes.delete(key);
   } else {
-    dictionary.insert(key);
+    availCodes.add(key);
   }
+
+  $(nLangsEl).text(availCodes.size + " Languages");
 }
 
-function createButton(code, lang) {
+function createChoiceButton(code, lang) {
   return `
         <div class="col-12 col-sm-6 col-lg-4">
           <button class="sstestoption"  id="${code}" onclick="chooseOption(this, '${code}')">
@@ -61,7 +62,7 @@ function addButtons() {
   var elementsHTML = "";
   for (let i = 0; i < curLevel.choices.length; i++) {
     code = curLevel.choices[i];
-    elementsHTML += createButton(code, speech2name[code]);
+    elementsHTML += createChoiceButton(code, speech2name[code]);
   }
   $(langGameButtonsEls).append(elementsHTML);
 }
@@ -77,6 +78,7 @@ function playLevel() {
 }
 
 function playGame() {
+  if (!availCodes.size) return;
   generateLevels();
   $(finishEl).css("display", "none");
   $(nextEl).css("display", "none");
@@ -87,9 +89,8 @@ function playGame() {
 }
 
 function select(element) {
-  $(".row.justify-content-center .sstestoption.selected").removeClass(
-    "selected",
-  );
+  $(".row.justify-content-center .sstestoption.selected")
+    .removeClass("selected");
   $(".sstestoption .fa-check-circle-o")
     .removeClass("fa-check-circle-o")
     .addClass("fa-circle-o");
@@ -102,12 +103,19 @@ function select(element) {
 
   $(element).addClass("selected");
 
-  redefineCodes($(element).prop("id"), 1);
+  levelName = $(element).prop("id")
+  redefineCodes(levelName);
   updateSelLangs();
   $(nLangsEl).text(availCodes.size + " Languages");
 }
 
-function updateSelLangs() {}
+function updateSelLangs() {
+  $(allLangSelButtons).removeClass('correct'); 
+
+  $.each(Array.from(availCodes), function(index, code) {
+    $(`#${code}`).addClass('correct');
+  });
+}
 
 function playAgain() {
   theGreatReset();
@@ -137,7 +145,7 @@ function chooseOption(element, code) {
   $(element)
     .find("div > span:first-child")
     .toggleClass("fa-check-circle-o fa-circle-o");
-  $("#" + ans).addClass("correct");
+  $(gameScreenEl).find("#" + ans).addClass("correct");
   if (status == "false") $(element).addClass("wrong");
   if (strike >= 3) displayEnd();
   else if (level == levels.length) displayWin();
@@ -152,6 +160,9 @@ function displayNext() {
 }
 
 function displayWin() {
+  HTML = `Congrats!<br />You finished the $(upper(levelName)) Level.<br />Final Score: $(score)`
+  console.log(HTML)
+  $("#win-h2").empty().append(HTML)
   $(nextEl).css("display", "none");
   $(finishEl).css("display", "block");
   $(winEl).css("display", "block");
@@ -171,4 +182,26 @@ $(document).keydown(function (event) {
   if (event.key === "Escape" || event.keyCode === 27) {
     end();
   }
+});
+
+// Enter, space, numbers/keyboard keys
+
+
+$(document).ready(function() {
+  var innerHTML = ''; // Correctly declare the variable with 'var', 'let', or 'const'
+  $(langSelMenu).empty(); // Assuming langSelMenu is a valid selector
+  // Correct syntax for iterating over an object's properties
+  $.each(speech2name, function(k, v) {
+    innerHTML += `<div class="lang-option">
+                    <button class="sstestoption" onclick="toggleSelect(this, '${k}')" id="${k}">
+                      <div style="padding: 10px">
+                        <span>${v}</span>
+                      </div>
+                    </button>
+                  </div>`;
+  });
+  $(langSelMenu).append(innerHTML); // Assuming langSelMenu is a valid selector
+  allLangSelButtons = $(langSelMenu).find("div > button")
+  redefineCodes('beginner');
+  updateSelLangs();
 });

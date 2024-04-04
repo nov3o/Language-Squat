@@ -1,17 +1,12 @@
 /*
   levelsSets:   Dictionary(String, Array[String(3)])
-  allScripting: Array[String(3)]
   allSpeech:    Array[String(3)]
   speech2name:  Dictionary(String(3), String)
-  script2name:  Dictionary(String(3), String)
   audiofiles:   Dictionary(String(3), Array[String](5))
 */
 
-var availScripts = new Set(allScripting),
-  availSpeeches = new Set(allSpeech);
-var availCodes = availSpeeches;
+var availCodes = new Set(allSpeech);
 var gameMode = "choose";
-var type = "speech";
 var score = 0;
 var level = 0;
 var strike = 0;
@@ -46,12 +41,8 @@ const resetScore = function () {
 };
 
 const theGreatReset = function () {
-  availScripts = new Set(allScripting);
-  availSpeeches = new Set(allSpeech);
   Object.keys(audiofiles).forEach((key) => shuffle(audiofiles[key]));
   gameMode = "choose";
-  type = "speech";
-  availCodes = availSpeeches;
   fastPlay = 0;
   score = 0;
   level = 0;
@@ -60,30 +51,16 @@ const theGreatReset = function () {
   generateLevels();
 };
 
-const delScriptCode = function (name) {
-  availScripts.delete(name);
-};
-
-const addScriptCode = function (name) {
-  availScripts.add(name);
-};
-
 const delSpeechCode = function (name) {
-  availSpeeches.delete(name);
+  availCodes.delete(name);
 };
 
 const addSpeechCode = function (name) {
-  availSpeeches.add(name);
+  availCodes.add(name);
 };
 
-const redefineCodes = function (difficulty, isSpeech) {
-  if (isSpeech) {
-    availSpeeches = new Set(levelsSets[difficulty]);
-    availCodes = availSpeeches;
-  } else {
-    availScripts = new Set(levelsSets[difficulty]);
-    availCodes = availScripts;
-  }
+const redefineCodes = function (difficulty) {
+  availCodes = new Set(levelsSets[difficulty]);
 };
 
 const generateLevels = () => {
