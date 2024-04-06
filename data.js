@@ -19,21 +19,21 @@ var levelsSets = {
     "spa", "sun", "swh", "swe", "tam", "tha", "tir", "ton", "tur", "ukr", "urd", "uzn", "vie", "xho", "ydd", "yor"
   ],
   "empty": [],
-  "Germanic": ["eng", "deu", "nld", "afr", "ydd", "swe", "dan", "nor", "isl", "fao"],
+  "Germanic": ["eng", "deu", "nld", "afr", "ydd", "swe", "dan", "nor", "fao"],
   "Romance": ["fra", "ita", "spa", "por", "ron", "cat", "oci"],
   "Slavic": ["rus", "ukr", "pol", "ces", "slk", "bul", "srp", "hrv", "mkd", "slv"],
   "Indo-Iranian": ["hin", "ben", "pnb", "guj", "mar", "prs", "pus", "kmr"],
-  "Other Indo-European": ["ell", "sqi", "hye", "lav", "lit"],
-  "Austronesian": ["ind", "zlm", "jav", "sun", "fil", "ban", "plt"],
+  "Austronesian": ["ind", "zlm", "jav", "sun", "fil", "ban"],
   "Sino-Tibetan": ["cmn", "wuu", "yue", "mya"],
   "Afro-Asiatic": ["arb", "heb", "amh", "tir", "som", "hau"],
-  "African": ["amh", "som", "swa", "xho", "yor", "hau", "afa"],
-  "Indian": ["hin", "ben", "guj", "mar", "pan", "tam", "mal", "kan", "ori"], 
-  "Nordic": ["dan", "swe", "nor", "isl", "fao"], // Languages of the Nordic countries.
-  "Latin": ["por", "spa", "fra", "ita", "ron", "cat"],   // Romance languages that evolved from Latin, spoken primarily in Europe and Latin America.
+  "African": ["amh", "som", "xho", "yor", "hau"],
+  "Indian": ["hin", "ben", "guj", "mar", "tam", "mal", "kan"], 
+  "Nordic": ["dan", "swe", "nor", "fao"], // Languages of the Nordic countries.
+  // Romance languages that evolved from Latin, spoken primarily in Europe and Latin America.
+  "Latin": ["por", "spa", "fra", "ita", "ron", "cat"],
   "Asian": [   // Broad category for languages across Asia, including East, Southeast, and South Asia, as well as West Asia (Middle East).
-    "cmn", "wuu", "yue", "jpn", "kor", "vie", "tha", "lao", "khm", "mya", "ind", "zlm", "jav", "sun", "tam", "tel", "urd", "arb", "prs",
-    "heb", "tur", "kur"
+    "cmn", "wuu", "yue", "jpn", "kor", "vie", "tha", "lao", "khm", "mya", "ind", "zlm", "jav", "sun", "tam", "urd", "arb", "prs",
+    "heb", "tur"
   ],
 };
 

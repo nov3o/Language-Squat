@@ -143,6 +143,10 @@
           </h1>
           <p class="lead text-muted">
             Greater Than the Greatest Language Identification & Guessing Game.
+	    <br>
+	    <i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/nov3o/language-squat">GitHub Repository</a>
+	    &nbsp;&nbsp;&nbsp;
+	    <i class="fa fa-external-link" aria-hidden="true"></i><a href="https://www.languagesquad.com/">Original Website</a>
           </p>
           <div>
             <div class="row justify-content-center">
@@ -157,7 +161,7 @@
                       onclick="select(this)"
                       title="Beginner, 12 Languages"
                       class="sstestoption selected"
-                      id="beginner"
+                      id="Beginner"
                       >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-check-circle-o"></span>
@@ -221,7 +225,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="228 Slavic Languages"
+                      title="10 Slavic Languages"
                       class="sstestoption"
                       id="Slavic"
                       >
@@ -234,7 +238,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 Nordic Languages"
+                      title="5 Nordic Languages"
                       class="sstestoption"
                       id="Nordic"
                       >
@@ -247,7 +251,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 Germanic Languages"
+                      title="9 Germanic Languages"
                       class="sstestoption"
                       id="Germanic"
                       >
@@ -260,7 +264,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 Indian Languages"
+                      title="7 Indian Languages"
                       class="sstestoption"
                       id="Indian"
                       >
@@ -273,7 +277,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 African Languages"
+                      title="5 African Languages"
                       class="sstestoption"
                       id="African"
                       >
@@ -286,7 +290,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 Latin Languages"
+                      title="6 Latin Languages"
                       class="sstestoption"
                       id="Latin"
                       >
@@ -299,7 +303,7 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 Asian Languages"
+                      title="20 Asian Languages"
                       class="sstestoption"
                       id="Asian"
                       >
@@ -312,47 +316,88 @@
 		  <div class="col-12 col-sm-6">
                     <button
                       onclick="select(this)"
-                      title="42 Oceanic Languages"
+                      title="42 Austronesian Languages"
                       class="sstestoption"
-                      id="Oceanic"
+                      id="Austronesian"
                       >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
-                        Oceanic
+                        Austronesian
                       </div>
                     </button>
 		  </div>
 		  <div class="col-12 col-sm-6">
                     <button
-
-                      title="42 ... Languages"
+                      onclick="select(this)"
+                      title="6 Austronesian Languages"
                       class="sstestoption"
-
+                      id="Austronesian"
                       >
                       <div style="padding: 5px 10px">
                         <span class="fa fa-circle-o"></span>
-                        ...
+                        Austronesian
+                      </div>
+                    </button>
+		  </div>
+		  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="7 Romance Languages"
+                      class="sstestoption"
+                      id="Romance"
+                      >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Romance
+                      </div>
+                    </button>
+		  </div>
+		  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="8 Indo-Iranian Languages"
+                      class="sstestoption"
+                      id="Indo-Iranian"
+                      >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Indo-Iranian
+                      </div>
+                    </button>
+		  </div>
+		  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="4 Sino-Tibetan Languages"
+                      class="sstestoption"
+                      id="Sino-Tibetan"
+                      >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Sino-Tibetan
+                      </div>
+                    </button>
+		  </div>
+		  <div class="col-12 col-sm-6">
+                    <button
+                      onclick="select(this)"
+                      title="6 Afro-Asiatic Languages"
+                      class="sstestoption"
+                      id="Afro-Asiatic"
+                      >
+                      <div style="padding: 5px 10px">
+                        <span class="fa fa-circle-o"></span>
+                        Afro-Asiatic
                       </div>
                     </button>
 		  </div>
                 </div>
+		<hr>
 		<div id="lang-selection" class="justify-buttons">
 		</div>
               </div>
             </div>
             <br />
-            <p style="display: none">
-              <span
-                style="
-                       position: relative;
-                       width: 1em;
-                       height: 1em;
-                       display: inline-block;
-                       "
-                ><span class="spinner"></span
-					 ></span>
-              Loading...
-            </p>
             <div style="margin: 0px 0px 1em" id="nlangs">12 Languages</div>
             <button
               title="Click to Start Game"
@@ -379,14 +424,13 @@
                 style="cursor: pointer"
 		>
                 AutoPlay :
-                <span
-                  ><i
-                     title="AutoPlay : ON"
-                     class="fa fa-forward"
-                     style="color: var(--green); display: none"
-                     ></i>
-                  <i title="AutoPlay : OFF" class="fa fa-step-forward"></i
-									 ></span>
+                <span>
+		  <i
+                    class="fa fa-step-forward"
+		    id="auto-play"
+		    onclick="autoPlayClick()"
+                    ></i>
+		</span>
               </h5>
             </div>
             <div class="pull-right">
@@ -400,21 +444,15 @@
           </div>
           <div style="font-size: 22px; font-weight: 700; margin: 0.6em 0px 1em">
             <span>Question <span id="level">1</span> : </span>
-            <!---->
-            <!---->
-            <!---->
+	    <audio style="display: none" id="audio"></audio>
             <button
               title="Keyboard Shortcut : Space"
               class="btn btn-primary btn-sm"
+	      id="audio-button"
+	      onclick="audioControl()"
               >
               &nbsp; Play&nbsp; <i class="fa fa-play"></i>&nbsp;
             </button>
-            <button class="btn btn-danger btn-sm" style="display: none">
-              &nbsp; Stop&nbsp; <i class="fa fa-stop"></i>&nbsp;
-            </button>
-            <span style="display: none"
-		  >&nbsp;<i class="fa fa-spinner fa-pulse"></i> Loading</span
-									 >
           </div>
           <div class="row justify-content-center" id="lang-game-buttons">
             <div class="col-12 col-sm-6 col-lg-4">
@@ -440,8 +478,6 @@
             </div>
           </div>
         </div>
-        <!---->
-        <!---->
         <div class="text-center" style="display: none" id="next-div">
           <br />
           <button
@@ -454,7 +490,6 @@
           <br />
         </div>
       </div>
-      <!---->
       <div class="text-center" style="display: none" id="finish-div">
         <br />
         <hr />
@@ -469,7 +504,7 @@
           </button>
         </div>
         <div id="game-over-div">
-          <h2>Game Over.<br />Final Score: 0</h2>
+          <h2 id="over-h2">Game Over.<br />Final Score: 0</h2>
           <br />
           <button class="btn btn-danger" onclick="playAgain()">
             &nbsp;Play Again &nbsp;<i class="fa fa-reply"></i>&nbsp;
