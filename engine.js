@@ -25,7 +25,7 @@ const additionalOptions = (n) => Math.floor(Math.min(n, 2450) / 250) + 2;
 
 function randAdd(set, k, result) {
   let arr = Array.from(set);
-
+  console.log(k, set, result)
   for (let i = 0; i < Math.min(k, arr.length); i++) {
     let randIndex = Math.floor(Math.random() * arr.length);
     result.push(arr[randIndex]);
@@ -88,6 +88,7 @@ const choose = function (code) {
 const getNext = function () {
   curLevel = levels[level];
   m = additionalOptions(score);
+  console.log(m)
   code = curLevel.ans;
   availCodes.delete(code);
   randAdd(availCodes, m, curLevel["choices"]);

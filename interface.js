@@ -35,6 +35,7 @@ gameFinished = 0;
 hasChosen = 0;
 levelName = "beginner"
 autoPlay = 0
+infGame = 0
 
 playText = `&nbsp; Play&nbsp; <i class="fa fa-play"></i>&nbsp;`
 stopText = `&nbsp; Stop&nbsp; <i class="fa fa-stop"></i>&nbsp;`
@@ -54,12 +55,12 @@ function toggleSelect(element, key) {
   $(nLangsEl).text(availCodes.size + " Languages");
 }
 
-function createChoiceButton(code, lang) {
+function createChoiceButton(code, lang, i=42) {
   return `
         <div class="col-12 col-sm-6 col-lg-4">
           <button class="sstestoption"  id="${code}" onclick="chooseOption(this, '${code}')">
             <div style="padding: 10px">
-              <span class="fa fa-circle-o"></span> <span>${lang}</span>
+              <span class="fa fa-circle-o"></span> <span>[${i+1}] ${lang}</span>
             </div>
           </button>
         </div>`;
@@ -70,11 +71,14 @@ function addButtons() {
   var elementsHTML = "";
   for (let i = 0; i < curLevel.choices.length; i++) {
     code = curLevel.choices[i];
-    elementsHTML += createChoiceButton(code, speech2name[code]);
+    elementsHTML += createChoiceButton(code, speech2name[code], i);
   }
   $(langGameButtonsEls).append(elementsHTML);
 
-  audio.src = `https://www.languagesquad.com/audio/${curLevel.ans}/${curLevel.file}`
+  // LangSquad files
+  // audio.src = `https://www.languagesquad.com/audio/${curLevel.ans}/${curLevel.file}`
+  // Local files
+  audio.src = `audio/${curLevel.file}` 
   $(audioButton).html(playText).removeClass("btn-danger").addClass("btn-primary")  // Reset
 }
 
@@ -180,10 +184,10 @@ function chooseOption(element, code) {
     .toggleClass("fa-check-circle-o fa-circle-o");
   $(gameScreenEl).find("#" + ans).addClass("correct");
   if (status == "false") $(element).addClass("wrong");
-  if (strike >= 3) displayEnd();
+  if (strike >= 3 && !infGame) displayEnd();
   else if (level == levels.length) displayWin();
   else displayNext();
-  $(strikeEl).text(strike);
+  if (!infGame) $(strikeEl).text(strike);
   $(scoreEl).text(score);
   hasChosen = 1;
 }
@@ -210,6 +214,12 @@ function displayEnd() {
   $(gameOverEl).css("display", "block");
 }
 
+function toggleInfinite(element) {
+  infGame ^= 1
+  $(element).toggleClass("btn-primary btn-outline-primary")
+}  
+  
+
 /* Event Bindings */
 
 $(document).keydown(function (event) {
@@ -220,13 +230,13 @@ $(document).keydown(function (event) {
 
 $(document).keydown(function (event) {
   if (event.key === "Spacebar" || event.key === " ") {
-    if (gameScreenEl.display != 'none') audioControl()
+    if (gameScreenEl.css('display') != 'none') audioControl()
   }
 });
 
 $(document).keydown(function (event) {
   if (event.which == 13) {
-    if (nextEl.display != 'none') playLevel()
+    if (nextEl.css('display') != 'none') playLevel()
   }
 });
 
@@ -234,6 +244,11 @@ $(document).keydown(function (event) {
   if (event.keyCode == 97 || event.keyCode == 65) {
     autoPlayClick()
   }
+});
+
+$(document).keydown(function (event) {
+  kC = event.keyCode-48
+  if (kC >= 1 && kC <= 57) $(langGameButtonsEls).find("> div > button")[kC-1].click()
 });
 
 $(document).ready(function() {

@@ -16,6 +16,11 @@ Unfortunately, the game's source code is obfuscated. Also, I don't want to train
    - *"Das Europäische Parlament erhöhte jedoch im Vergleich zu dem ursprünglichen.", "Le restaurant italien s’ouvre à midi.", "Minä asun tuossa kerrostalossa.", "på bara några minuter.", etc* - Swedish, German, French, Finnish 
    - It's a more difficult mode since it requires knowledge of some basic words and not just the patterns
 
+### Language Sets
+
+**Abc**
+  - abc, cde, efg
+  
 ### Contact
 
 If the audio doesn't work, please contact me at [badanin.ilia\@gmail.com](mailto:badanin.ilia@gmail.com?subject=LanguageSquat). You can use this email for any other reason too. 🙂

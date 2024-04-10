@@ -399,6 +399,14 @@
             </div>
             <br />
             <div style="margin: 0px 0px 1em" id="nlangs">12 Languages</div>
+	    <buton
+	      type="checkbox"
+	      class="btn btn-outline-primary"
+	      label="Infinite game"
+	      onclick="toggleInfinite(this)"
+              >
+	      Infinite Game
+            </buton>
             <button
               title="Click to Start Game"
               onclick="playGame()"
@@ -444,7 +452,7 @@
           </div>
           <div style="font-size: 22px; font-weight: 700; margin: 0.6em 0px 1em">
             <span>Question <span id="level">1</span> : </span>
-	    <audio style="display: none" id="audio"></audio>
+	    <audio style="display: none" id="audio" loop></audio>
             <button
               title="Keyboard Shortcut : Space"
               class="btn btn-primary btn-sm"

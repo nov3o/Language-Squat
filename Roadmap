@@ -1,1 +1,5 @@
 - Add writing option
+
+Bugs:
+- The number of buttons showed is wrong if #langs to choose ~= #langs in set
+- there are two Austronesian sets, but i don't know which lang set replace it with 
