@@ -79,8 +79,8 @@ const generateLevels = () => {
 const choose = function (code) {
   ans = levels[level - 1]["ans"];
   status = code === ans;
-  if (status == "true")
-    score += 50; // for some reason status is stringx
+  if (status == "true")  // for some reason status is stringx
+    score += 50;
   else strike++;
   return [status, strike, score, ans];
 };

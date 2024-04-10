@@ -1,5 +1,3 @@
-abc = "arb"
-
 var levelsSets = {
   "Beginner": [
     "arb", "cmn", "eng", "fra", "deu", "hin", "jpn", "rus", "spa", "swh", "swe", "tur"],

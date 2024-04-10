@@ -1,39 +1,3 @@
-/* /\* Custom styles.css *\/ */
-/* .container { */
-/*   max-width: 600px; /\* Adjust width as per design requirement *\/ */
-/* } */
-
-/* #menu-section h1, */
-/* #game-over-section h2, */
-/* #you-win-section h2 { */
-/*   font-size: 2.5rem; */
-/*   color: #333; */
-/* } */
-
-/* .game-settings h2, */
-/* .question h3 { */
-/*   color: #555; */
-/*   font-size: 1.5rem; */
-/* } */
-
-/* #start-game, */
-/* .play-button, */
-/* #play-again, */
-/* #play-again-win { */
-/*   margin-top: 20px; */
-/* } */
-
-/* .languages-info { */
-/*   font-size: 0.9em; */
-/* } */
-
-/* footer { */
-/*   color: #666; */
-/*   font-size: 0.8em; */
-/* } */
-
-/* You might want to add additional custom styles or overrides for Bootstrap styles here */
-
 #lang-selection {
   display: flex;
   flex-wrap: wrap;
