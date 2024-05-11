@@ -36,6 +36,7 @@ hasChosen = 0;
 levelName = "beginner"
 autoPlay = 0
 infGame = 0
+autoNext = 0
 
 playText = `&nbsp; Play&nbsp; <i class="fa fa-play"></i>&nbsp;`
 stopText = `&nbsp; Stop&nbsp; <i class="fa fa-stop"></i>&nbsp;`
@@ -43,7 +44,6 @@ stopText = `&nbsp; Stop&nbsp; <i class="fa fa-stop"></i>&nbsp;`
 function toggleSelect(element, key) {
   levelName = "Custom"
 
-  // Toggling the key in the dictionary object
   if (availCodes.has(key)) {
     availCodes.delete(key);
     $(element).removeClass("correct");
@@ -55,12 +55,13 @@ function toggleSelect(element, key) {
   $(nLangsEl).text(availCodes.size + " Languages");
 }
 
+i2k = [1,2,3,4,5,6,7,8,9,0,'-','=']  // index to key
 function createChoiceButton(code, lang, i=42) {
   return `
         <div class="col-12 col-sm-6 col-lg-4">
           <button class="sstestoption"  id="${code}" onclick="chooseOption(this, '${code}')">
             <div style="padding: 10px">
-              <span class="fa fa-circle-o"></span> <span>[${i+1}] ${lang}</span>
+              <span class="fa fa-circle-o"></span> <span>[${i2k[i]}] ${lang}</span>
             </div>
           </button>
         </div>`;
@@ -185,11 +186,14 @@ function chooseOption(element, code) {
   $(gameScreenEl).find("#" + ans).addClass("correct");
   if (status == "false") $(element).addClass("wrong");
   if (strike >= 3 && !infGame) displayEnd();
+  // if (strike >= 3) displayEnd();
   else if (level == levels.length) displayWin();
   else displayNext();
-  if (!infGame) $(strikeEl).text(strike);
+  // if (!infGame) $(strikeEl).text(strike);
+  $(strikeEl).text(strike);
   $(scoreEl).text(score);
   hasChosen = 1;
+  if (autoNext) playLevel()
 }
 
 function displayNext() {
@@ -216,6 +220,11 @@ function displayEnd() {
 
 function toggleInfinite(element) {
   infGame ^= 1
+  $(element).toggleClass("btn-primary btn-outline-primary")
+}
+
+function toggleAutoNext(element) {
+  autoNext ^= 1
   $(element).toggleClass("btn-primary btn-outline-primary")
 }  
   
@@ -246,15 +255,22 @@ $(document).keydown(function (event) {
   }
 });
 
-$(document).keydown(function (event) {
-  kC = event.keyCode-48
-  if (kC >= 1 && kC <= 57) $(langGameButtonsEls).find("> div > button")[kC-1].click()
+t = {0: 9, 141: 10, 139: 11}
+$(document).keydown(function(event) {
+  kC = event.keyCode-48;
+  ix = -1;
+  console.log(kC)
+  if (kC >= 1 && kC <= 9) ix = kC-1;
+  else if (kC in t) ix = t[kC];
+  console.log(ix)
+  if (ix != -1) $(langGameButtonsEls).find("> div > button")[ix].click();
 });
 
+
 $(document).ready(function() {
-  var innerHTML = ''; // Correctly declare the variable with 'var', 'let', or 'const'
-  $(langSelMenu).empty(); // Assuming langSelMenu is a valid selector
-  // Correct syntax for iterating over an object's properties
+  var innerHTML = ''; 
+  $(langSelMenu).empty();
+
   $.each(speech2name, function(k, v) {
     innerHTML += `<div class="lang-option">
                     <button class="sstestoption" onclick="toggleSelect(this, '${k}')" id="${k}">
@@ -264,7 +280,7 @@ $(document).ready(function() {
                     </button>
                   </div>`;
   });
-  $(langSelMenu).append(innerHTML); // Assuming langSelMenu is a valid selector
+  $(langSelMenu).append(innerHTML);
   allLangSelButtons = $(langSelMenu).find("div > button")
   redefineCodes('Beginner');
   updateSelLangs();
