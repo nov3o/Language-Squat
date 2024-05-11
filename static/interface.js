@@ -77,9 +77,9 @@ function addButtons() {
   $(langGameButtonsEls).append(elementsHTML);
 
   // LangSquad files
-  // audio.src = `https://www.languagesquad.com/audio/${curLevel.ans}/${curLevel.file}`
+  audio.src = `https://www.languagesquad.com/audio/${curLevel.ans}/${curLevel.file}`
   // Local files
-  audio.src = `audio/${curLevel.file}` 
+  // audio.src = `audio/${curLevel.file}` 
   $(audioButton).html(playText).removeClass("btn-danger").addClass("btn-primary")  // Reset
 }
 
