@@ -23,13 +23,15 @@ const shuffle = function (array) {
 
 const additionalOptions = (n) => Math.floor(Math.min(n, 2450) / 250) + 2;
 
+// Now, it's a pure function
 function randAdd(set, k, result) {
   let arr = Array.from(set);
-  console.log(k, set, result)
-  for (let i = 0; i < Math.min(k, arr.length); i++) {
+  result = result.slice()  // ~clone
+  if (k >= arr.length) return shuffle(result.concat(arr))
+  for (let i = 0; i < k; i++) {  // initially k < arr.length, so it's  fine
     let randIndex = Math.floor(Math.random() * arr.length);
     result.push(arr[randIndex]);
-    arr.splice(randIndex, 1);
+    arr.splice(randIndex, 1);  // O(n) element removal 🤪
   }
   return shuffle(result);
 }
@@ -79,7 +81,7 @@ const generateLevels = () => {
 const choose = function (code) {
   ans = levels[level - 1]["ans"];
   status = code === ans;
-  if (status == "true")  // for some reason status is stringx
+  if (status == "true")  // for some reason status is string not bool
     score += 50;
   else strike++;
   return [status, strike, score, ans];
@@ -88,10 +90,9 @@ const choose = function (code) {
 const getNext = function () {
   curLevel = levels[level];
   m = additionalOptions(score);
-  console.log(m)
   code = curLevel.ans;
   availCodes.delete(code);
-  randAdd(availCodes, m, curLevel["choices"]);
+  curLevel["choices"] = randAdd(availCodes, m, curLevel["choices"]);
   availCodes.add(code);
   level++;
   return curLevel;

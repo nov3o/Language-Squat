@@ -259,10 +259,8 @@ t = {0: 9, 141: 10, 139: 11}
 $(document).keydown(function(event) {
   kC = event.keyCode-48;
   ix = -1;
-  console.log(kC)
   if (kC >= 1 && kC <= 9) ix = kC-1;
   else if (kC in t) ix = t[kC];
-  console.log(ix)
   if (ix != -1) $(langGameButtonsEls).find("> div > button")[ix].click();
 });
 
