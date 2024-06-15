@@ -31,7 +31,9 @@ function randAdd(set, k, result) {
   for (let i = 0; i < k; i++) {  // initially k < arr.length, so it's  fine
     let randIndex = Math.floor(Math.random() * arr.length);
     result.push(arr[randIndex]);
-    arr.splice(randIndex, 1);  // O(n) element removal 🤪
+    // O(1) element removal 😬😌
+    [arr[randIndex], arr[arr.length - 1]] = [arr[arr.length - 1], arr[randIndex]];
+    arr.pop();
   }
   return shuffle(result);
 }
