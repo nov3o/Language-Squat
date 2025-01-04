@@ -177,9 +177,21 @@ function end() {
   theGreatReset();
 }
 
+function showPopup(ans, isCorrect) {
+  const popup = document.createElement('div');
+  popup.classList.add('popup', isCorrect ? 'green' : 'red');
+  popup.innerText = `Correct Answer: ${ans}`;
+  document.body.appendChild(popup);
+  setTimeout(() => {
+    popup.style.opacity = 0;
+    setTimeout(() => popup.remove(), 500);
+  }, 2000);
+}
+
 function chooseOption(element, code) {
   if (hasChosen || gameFinished) return;
   [status, strike, score, ans] = choose(code);
+  console.log(ans, code)
   $(element)
     .find("div > span:first-child")
     .toggleClass("fa-check-circle-o fa-circle-o");
@@ -193,7 +205,10 @@ function chooseOption(element, code) {
   $(strikeEl).text(strike);
   $(scoreEl).text(score);
   hasChosen = 1;
-  if (autoNext) playLevel()
+  if (autoNext) {
+    playLevel()
+    showPopup(speech2name[ans], ans == code)
+  }
 }
 
 function displayNext() {
@@ -227,43 +242,35 @@ function toggleAutoNext(element) {
   autoNext ^= 1
   $(element).toggleClass("btn-primary btn-outline-primary")
 }  
-  
 
 /* Event Bindings */
-
-$(document).keydown(function (event) {
-  if (event.key === "Escape" || event.keyCode === 27) {
-    end();
-  }
-});
-
-$(document).keydown(function (event) {
-  if (event.key === "Spacebar" || event.key === " ") {
-    if (gameScreenEl.css('display') != 'none') audioControl()
-  }
-});
-
-$(document).keydown(function (event) {
-  if (event.which == 13) {
-    if (nextEl.css('display') != 'none') playLevel()
-  }
-});
-
-$(document).keydown(function (event) {
-  if (event.keyCode == 97 || event.keyCode == 65) {
-    autoPlayClick()
-  }
-});
-
-t = {0: 9, 141: 10, 139: 11}
 $(document).keydown(function(event) {
-  kC = event.keyCode-48;
-  ix = -1;
-  if (kC >= 1 && kC <= 9) ix = kC-1;
-  else if (kC in t) ix = t[kC];
-  if (ix != -1) $(langGameButtonsEls).find("> div > button")[ix].click();
-});
+  kC = event.keyCode;
+  switch (kC) {
+  case 97:
+  case 65:
+    autoPlayClick()
+    return
+  case 13:  // return
+    if (nextEl.css('display') != 'none') playLevel()
+    return
+  case 83: // S
+    ix = curLevel.choices.findIndex(choice => choice === curLevel.ans);
+    $(langGameButtonsEls).find("> div > button")[ix].click();  
+    return
+  case 32: // Spacebar
+    if (gameScreenEl.css('display') != 'none') audioControl()
+    return
+  default: // test for 1234567890-=
+    t = {0: 9, 141: 10, 139: 11}
+    kC -= 48;
+    ix = -1;
+    if (kC >= 1 && kC <= 9) ix = kC-1; // 123456789
+    else if (kC in t) ix = t[kC];  // 0-=
 
+    if (ix != -1) $(langGameButtonsEls).find("> div > button")[ix].click();  
+  }
+});
 
 $(document).ready(function() {
   var innerHTML = ''; 
