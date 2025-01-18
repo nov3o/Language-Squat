@@ -3,3 +3,4 @@ package.json
 package-lock.json
 audio/
 downloads/
+static/audio_files

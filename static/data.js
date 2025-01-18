@@ -2,38 +2,53 @@ var levelsSets = {
   "Beginner": [
     "arb", "cmn", "eng", "fra", "deu", "hin", "jpn", "rus", "spa", "swh", "swe", "tur"],
   "Easy": [
-    "arb", "cmn", "dan", "nld", "eng", "fin", "fra", "deu", "ell", "heb", "hin", "ita", "jpn", "kor", "nor", "pol", "por", "rus", "spa",
-    "swh", "swe", "tha", "tur", "vie"],
+    "vie", "kor", "tha", "ita", "dan", "nld", "heb", "nor", "fin", "ell", "por", "pol"],
   "Medium": [
-    "afr", "aln", "amh", "arb", "hye", "ben", "bul", "cmn", "yue", "ces", "dan", "nld", "eng", "ekk", "fao", "prs", "fil", "fin", "fra",
-    "deu", "ell", "hat", "hau", "heb", "hin", "hun", "ind", "ita", "jpn", "kor", "lvs", "mkd", "zlm", "mlt", "mon", "npi", "nor", "pol",
-    "por", "ron", "rus", "srp", "slk", "slv", "som", "spa", "swh", "swe", "tam", "tha", "tur", "ukr", "urd", "uzn", "vie", "xho", "ydd",
-    "yor"],
+    "npi", "srp", "ekk", "mon", "ron", "urd", "ces", "mkd", "ben", "hun", "hau", "bul", "fil", "lvs", "xho", "ukr", "yue", "fao", "som", "mlt", "slv", "ind", "aln", "tam", "prs", "hye", "zlm", "ydd", "hat", "uzn", "slk", "afr", "amh", "yor"],
   "Hard": [
-    "ace", "afr", "ain", "aln", "amh", "arb", "hye", "aii", "ban", "ben", "bug", "bul", "mya", "cat", "cmn", "wuu", "yue", "hrv", "ces",
-    "dan", "dik", "nld", "eng", "epo", "ekk", "fao", "prs", "fij", "fil", "fin", "fra", "fry", "deu", "ell", "guj", "hat", "hau", "heb",
-    "hin", "hun", "ind", "ita", "jpn", "jav", "kan", "khm", "kor", "kmr", "lao", "lat", "lvs", "ltz", "mkd", "zlm", "mal", "mlt", "mar",
-    "min", "mon", "npi", "nor", "oci", "ory", "oss", "pam", "pus", "pol", "por", "pnb", "ron", "rus", "smo", "srp", "slk", "slv", "som",
-    "spa", "sun", "swh", "swe", "tam", "tha", "tir", "ton", "tur", "ukr", "urd", "uzn", "vie", "xho", "ydd", "yor"
-  ],
-  "empty": [],
-  "Germanic": ["eng", "deu", "nld", "afr", "ydd", "swe", "dan", "nor", "fao"],
-  "Romance": ["fra", "ita", "spa", "por", "ron", "cat", "oci"],
+    "bug", "sun", "kan", "pus", "ace", "mal", "guj", "tir", "oss", "epo", "khm", "dik", "ban", "fry", "ain", "mya", "kmr", "min", "lat", "smo", "lao", "ton", "ory", "pam", "oci", "cat", "fij", "mar", "ltz", "pnb", "aii", "jav", "wuu", "hrv"],
+
+  "Empty": [],
+
+  // European Language Groups
+  "Germanic": ["eng", "deu", "nld", "afr", "ydd", "swe", "dan", "nor", "fao", "ltz", "fry"],
+  "Romance": ["fra", "ita", "spa", "por", "ron", "cat", "oci", "hat"],
   "Slavic": ["rus", "ukr", "pol", "ces", "slk", "bul", "srp", "hrv", "mkd", "slv"],
-  "Indo-Iranian": ["hin", "ben", "pnb", "guj", "mar", "prs", "pus", "kmr"],
-  "Austronesian": ["ind", "zlm", "jav", "sun", "fil", "ban"],
-  "Sino-Tibetan": ["cmn", "wuu", "yue", "mya"],
-  "Afro-Asiatic": ["arb", "heb", "amh", "tir", "som", "hau"],
-  "African": ["amh", "som", "xho", "yor", "hau"],
-  "Indian": ["hin", "ben", "guj", "mar", "tam", "mal", "kan"], 
-  "Nordic": ["dan", "swe", "nor", "fao"], // Languages of the Nordic countries.
-  // Romance languages that evolved from Latin, spoken primarily in Europe and Latin America.
-  "Latin": ["por", "spa", "fra", "ita", "ron", "cat"],
-  "Asian": [   // Broad category for languages across Asia, including East, Southeast, and South Asia, as well as West Asia (Middle East).
-    "cmn", "wuu", "yue", "jpn", "kor", "vie", "tha", "lao", "khm", "mya", "ind", "zlm", "jav", "sun", "tam", "urd", "arb", "prs",
-    "heb", "tur"
+  "Nordic": ["dan", "swe", "nor", "fao"],
+  
+  // All European Languages (Super Group)
+  "European": [], // Will concatenate later
+  
+  // South Asian and Indo-Iranian Groups
+  "Indo-Iranian": ["hin", "ben", "pnb", "guj", "mar", "prs", "pus", "kmr", "npi"],
+  "Indian": ["hin", "ben", "guj", "mar", "tam", "mal", "kan", "urd", "ory"],
+
+  // Semitic and Afro-Arabic
+  "Semitic": ["arb", "heb", "amh", "tir", "aii", "oss"],
+
+  // African
+  "African": ["amh", "som", "xho", "yor", "hau", "swh", "dik"],
+
+  // Austronesian and Oceanic
+  "Austronesian": ["ind", "zlm", "jav", "sun", "fil", "ban", "fij", "smo", "ton", "pam", "min", "bug", "ace"],
+
+  // East and Southeast Asian
+  "Asian": [
+    "cmn", "wuu", "yue", "jpn", "kor", "vie", "tha", "lao", "khm", "mya", "tur", "uzn", "mon", "ain"
   ],
 };
+
+// Define super-groups by concatenating relevant groups
+levelsSets["European"] = [
+  ...levelsSets["Germanic"],
+  ...levelsSets["Romance"],
+  ...levelsSets["Slavic"],
+  "ell", "aln", "ekk", "fin", "lvs", "hun", "mlt", "lat", "epo", "hye" // Other European languages
+];
+
+levelsSets.Easy.push(...levelsSets.Beginner);
+levelsSets.Medium.push(...levelsSets.Easy);
+levelsSets.Hard.push(...levelsSets.Medium);
 
 var allSpeech = levelsSets["hard"];
 
@@ -778,3 +793,5 @@ var audiofiles = {
     "pcut_4_yoruba.mp3",
   ],
 };
+
+module.exports = audiofiles;

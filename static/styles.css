@@ -55,3 +55,107 @@
 .popup.red {
   background-color: red;
 }
+
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+  transition: all 0.5s ease;
+}
+.jumbotron.shrink {
+  padding-top: 1.5em;
+  padding-bottom: 1em;
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 4px 5px 0 rgba(0, 0, 0, 0.06),
+    0 1px 10px 0 rgba(0, 0, 0, 0.08);
+}
+.jumbotron.shrink h1 {
+  transition: all 0.5s ease;
+  font-size: 1.75rem;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+  .jumbotron.shrink {
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+    box-shadow:
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      0 4px 5px 0 rgba(0, 0, 0, 0.06),
+      0 1px 10px 0 rgba(0, 0, 0, 0.08);
+  }
+  .jumbotron.shrink h1 {
+    font-size: 2.5rem;
+  }
+}
+.sstestoption {
+  background: #e6e6f0;
+  cursor: pointer;
+  line-height: 25px;
+  transition: all 0.5s ease;
+  margin: 5px 0px;
+  padding: 2px;
+  text-align: left;
+  display: block;
+  width: 100%;
+  border: none;
+}
+.sstestoption .fa {
+  line-height: 25px;
+  font-size: 25px;
+  vertical-align: middle;
+  padding-right: 5px;
+  margin-top: -3px;
+}
+.sstestoption:hover {
+  background: #d6d6e0;
+}
+.sstestoption.selected {
+  background: #505060;
+  color: white;
+}
+.sstestoption.correct {
+  color: white;
+  background: var(--success);
+}
+.sstestoption.wrong {
+  color: white;
+  background: var(--danger);
+}
+.sstestoption.correct,
+.sstestoption.wrong {
+  transform: rotateX(359deg);
+}
+
+[v-cloak] {
+  display: none;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spinner 0.6s linear infinite;
+}

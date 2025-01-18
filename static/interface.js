@@ -20,6 +20,7 @@ restMainMenuEls = $(sectionEl).find("> div > p, > div > div");
 langGameButtonsEls = $("#lang-game-buttons");
 strikeEl = $("#strike");
 scoreEl = $("#score");
+corrEl = $("#corr");
 gameOverEl = $("#game-over-div");
 winEl = $("#win-div");
 finishEl = $("#finish-div");
@@ -106,7 +107,7 @@ function playLevel() {
   addButtons();
   hasChosen = 0;
   gameFinished = 0;
-  $(levelEl).text(level);
+  $(levelEl).text(`${level}/${levels.length}`);
   $(nextEl).css("display", "none");
 
   if (autoPlay) audioControl()  // Imitate the press 
@@ -203,6 +204,7 @@ function chooseOption(element, code) {
   else displayNext();
   // if (!infGame) $(strikeEl).text(strike);
   $(strikeEl).text(strike);
+  $(corrEl).text(level - strike);
   $(scoreEl).text(score);
   hasChosen = 1;
   if (autoNext) {
@@ -289,4 +291,24 @@ $(document).ready(function() {
   allLangSelButtons = $(langSelMenu).find("div > button")
   redefineCodes('Beginner');
   updateSelLangs();
+
+  const $setsList = $('#sets-list'); // Assuming #sets-list is your target container
+
+  $.each(levelsSets, function (key, value) {
+    const buttonHtml = `
+        <div class="col-12 col-lg-4 col-md-4 col-sm-6">
+            <button
+              onclick="select(this)"
+              title="${key}, ${value.length} Languages"
+              class="sstestoption"
+              id="${key}"
+              >
+              <div style="padding: 5px 10px">
+                <span class="fa fa-circle-o"></span>
+                ${key}
+              </div>
+            </button>
+        </div>`;
+    $setsList.append(buttonHtml);
+  });
 });
